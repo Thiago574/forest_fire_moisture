@@ -30,7 +30,7 @@ model_params = {
     "height": 100,
     "width": 100,
     "density": UserSettableParameter("slider", "Tree density", 0.65, 0.01, 1.0, 0.01),
-    "rain": UserSettableParameter("slider", "Rain", 0.55, 0.00, 1.0, 0.01),
+    "Umidade": UserSettableParameter("slider", "Umidade", 0.55, 0.00, 1.0, 0.01),
     
 }
 server = ModularServer(

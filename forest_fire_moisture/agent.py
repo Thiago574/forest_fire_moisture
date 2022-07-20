@@ -25,7 +25,7 @@ class TreeCell(Agent):
         self.save = 0
         self.pos = pos
         self.condition = "Fine"
-        self.rain = random.uniform(-0.40, 0.25) + model.rain
+        self.Umidade = random.uniform(-0.40, 0.25) + model.Umidade
         
 
     def step(self):
@@ -36,11 +36,12 @@ class TreeCell(Agent):
             for neighbor in self.model.grid.neighbor_iter(self.pos):
                 if neighbor.condition == "Fine":
                     neighbor.condition = "On Fire"
-                    if self.rain>0.6 and neighbor.condition == "On Fire":                       
+                    ####
+                    if self.Umidade>0.6 and neighbor.condition == "On Fire":                       
                         for neighbor2 in self.model.grid.neighbor_iter(self.pos):
                             if neighbor2.condition == "On Fire":
                                 neighbor2.condition = "Fine"
                                 neighbor2.save = 1
-                            
+                    ####        
 
             self.condition = "Burned Out"

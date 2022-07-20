@@ -11,7 +11,7 @@ class ForestFire(Model):
     Simple Forest Fire model.
     """
 
-    def __init__(self, width=100, height=100, density=0.65, rain=0.3):
+    def __init__(self, width=100, height=100, density=0.65, Umidade=0.3):
         """
         Create a new forest fire model.
 
@@ -22,7 +22,7 @@ class ForestFire(Model):
         # Set up model objects
         self.schedule = RandomActivation(self)
         self.grid = Grid(width, height, torus=False)
-        self.rain = rain
+        self.Umidade = Umidade
         self.density = density
         
         self.datacollector = DataCollector(
@@ -30,7 +30,7 @@ class ForestFire(Model):
                 "Fine": lambda m: self.count_type(m, "Fine"),
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
-                "Rain":  lambda m: rain,
+                "Umidade":  lambda m: Umidade,
             },
             
             agent_reporters={
@@ -69,14 +69,15 @@ class ForestFire(Model):
         if self.count_type(self, "On Fire") == 0:
             self.running = False
              
-	#imprimir csv
+	#imprimir csv 
+    """
             time = str(datetime.now().date())
             model = self.datacollector.get_model_vars_dataframe()
             agent = self.datacollector.get_agent_vars_dataframe()
-            name = ("dens=" + str(self.density) + "rain=" + str(self.rain) + time)
+            name = ("dens=" + str(self.density) + "Umidade=" + str(self.Umidade) + time)
             model.to_csv("data/model_data_steps_" + name + ".csv")
             agent.to_csv("data/agent_data_steps_" + name + ".csv")
-        
+      """  
     @staticmethod
     def count_type(model, tree_condition):
         """
