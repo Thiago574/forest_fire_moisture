@@ -1,3 +1,3 @@
-from forest_fire_out.server import server
+from forest_fire_moisture.server import server
 
 server.launch()
