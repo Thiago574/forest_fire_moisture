@@ -11,7 +11,7 @@ class ForestFire(Model):
     Simple Forest Fire model.
     """
 
-    def __init__(self, width=100, height=100, density=0.65, Umidade=0.3):
+    def __init__(self, width=100, height=100, density=0.65, Umidade=0.3, TipoVegetacao=0.5):
         """
         Create a new forest fire model.
 
@@ -24,6 +24,7 @@ class ForestFire(Model):
         self.grid = Grid(width, height, torus=False)
         self.Umidade = Umidade
         self.density = density
+        self.TipoVegetacao = TipoVegetacao
         
         self.datacollector = DataCollector(
             model_reporters={
