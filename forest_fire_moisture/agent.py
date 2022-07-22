@@ -33,16 +33,19 @@ class TreeCell(Agent):
         """
         If the tree is on fire, spread it to fine trees nearby.
         """
+        count=0
         if self.condition == "On Fire":
             for neighbor in self.model.grid.neighbor_iter(self.pos):
-                if neighbor.condition == "Fine":
+                if neighbor.condition == "Fine" or neighbor.condition == "Saved":
                     neighbor.condition = "On Fire"
                     ####
-                    if self.Umidade>0.6 and neighbor.condition == "On Fire" and self.TipoVegetacao>0.5:                       
+                    if self.Umidade>0.6 and neighbor.condition == "On Fire" and self.TipoVegetacao>0.5 or neighbor.condition == "Saved":                       
                         for neighbor2 in self.model.grid.neighbor_iter(self.pos):
                             if neighbor2.condition == "On Fire":
                                 neighbor2.condition = "Fine"
-                                neighbor2.save = 1
+                                neighbor2.condition = "Saved"
+                                count=count+1
+                                neighbor2.save = count
                     ####        
 
             self.condition = "Burned Out"

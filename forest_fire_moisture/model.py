@@ -25,13 +25,18 @@ class ForestFire(Model):
         self.Umidade = Umidade
         self.density = density
         self.TipoVegetacao = TipoVegetacao
-        
+
+        #Variável independente:Umidade e TipoVegetacao
+        #Variável dependente:Fine, On Fire, Saved, Burned Out
         self.datacollector = DataCollector(
             model_reporters={
                 "Fine": lambda m: self.count_type(m, "Fine"),
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
+                "Saved": lambda m: self.count_type(m, "Saved"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
                 "Umidade":  lambda m: Umidade,
+                "TipoVegetacao": lambda m: TipoVegetacao,
+                "Saved index": lambda m: self.percentage(m)
             },
             
             agent_reporters={
@@ -89,3 +94,12 @@ class ForestFire(Model):
             if tree.condition == tree_condition:
                 count += 1
         return count
+
+    def percentage(self, model):
+            total = self.count_type(self, "Burned Out") + self.count_type(self, "Saved")
+            saved = self.count_type(self, "Saved")
+            if total > 0:
+                percentage = saved / total
+                return percentage
+            if total ==0:
+                return 0
