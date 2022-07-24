@@ -32,7 +32,7 @@ class ForestFire(Model):
             model_reporters={
                 "Fine": lambda m: self.count_type(m, "Fine"),
                 "On Fire": lambda m: self.count_type(m, "On Fire"),
-                "Saved": lambda m: self.count_type(m, "Saved"),
+                "PartiallyBurned": lambda m: self.count_type(m, "PartiallyBurned"),
                 "Burned Out": lambda m: self.count_type(m, "Burned Out"),
                 "Umidade":  lambda m: Umidade,
                 "TipoVegetacao": lambda m: TipoVegetacao,
@@ -40,7 +40,7 @@ class ForestFire(Model):
             },
             
             agent_reporters={
-                "Recuperate": lambda x: x.save
+                "Recuperate": lambda x: x.PartiallyBurned
             },
         )
         
@@ -96,10 +96,10 @@ class ForestFire(Model):
         return count
 
     def percentage(self, model):
-            total = self.count_type(self, "Burned Out") + self.count_type(self, "Saved")
-            saved = self.count_type(self, "Saved")
+            total = self.count_type(self, "Burned Out") + self.count_type(self, "PartiallyBurned")
+            PartiallyBurned = self.count_type(self, "PartiallyBurned")
             if total > 0:
-                percentage = saved / total
+                percentage = PartiallyBurned / total
                 return percentage
             if total ==0:
                 return 0
