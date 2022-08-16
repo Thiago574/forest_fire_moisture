@@ -4,7 +4,8 @@ from datetime import datetime
 from mesa.time import RandomActivation
 from mesa.space import Grid
 from .agent import TreeCell
-
+from mesa.batchrunner import batch_run
+import numpy as np
 
 class ForestFire(Model):
     """
@@ -27,7 +28,7 @@ class ForestFire(Model):
         self.TipoVegetacao = TipoVegetacao
 
         #Variável independente:Umidade e TipoVegetacao
-        #Variável dependente:Fine, On Fire, Saved, Burned Out
+        #Variável dependente:Fine, On Fire, PartiallyBurned, Burned Out
         self.datacollector = DataCollector(
             model_reporters={
                 "Fine": lambda m: self.count_type(m, "Fine"),
@@ -39,9 +40,9 @@ class ForestFire(Model):
                 "Saved index": lambda m: self.percentage(m)
             },
             
-            agent_reporters={
-                "Recuperate": lambda x: x.PartiallyBurned
-            },
+            #agent_reporters={
+            #    "Recuperate": lambda x: x.PartiallyBurned
+            #},
         )
         
 
@@ -76,14 +77,28 @@ class ForestFire(Model):
             self.running = False
              
 	#imprimir csv 
-    """
-            time = str(datetime.now().date())
-            model = self.datacollector.get_model_vars_dataframe()
-            agent = self.datacollector.get_agent_vars_dataframe()
-            name = ("dens=" + str(self.density) + "Umidade=" + str(self.Umidade) + time)
-            model.to_csv("data/model_data_steps_" + name + ".csv")
-            agent.to_csv("data/agent_data_steps_" + name + ".csv")
-      """  
+
+        params = {"density": 200, "width": 100, "height": 100, "Umidade": np.arange(0, 1, 0.2), "TipoVegetacao": np.arange(0, 1, 0.2)}
+        experiments_per_parameter_configuration = 300
+        max_steps_per_simulation = 200
+        '''
+        results = batch_run(
+            ForestFire,
+            parameters=params,
+            iterations=experiments_per_parameter_configuration,
+            max_steps=max_steps_per_simulation,
+            data_collection_period=-1,
+            display_progress=True,
+        )
+    
+        time = str(datetime.now().date())
+        model = self.datacollector.get_model_vars_dataframe()
+        agent = self.datacollector.get_agent_vars_dataframe()
+        name = ("dens=" + str(self.density) + "_Umidade=" + str(self.Umidade) +"_TipoVegetacao=" + str(self.TipoVegetacao)+ "_"+time)
+        model.to_csv("data/model_data_steps_" + name + ".csv")
+        agent.to_csv("data/agent_data_steps_" + name + ".csv")'''
+        
+        
     @staticmethod
     def count_type(model, tree_condition):
         """
