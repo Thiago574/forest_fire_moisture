@@ -5,35 +5,21 @@ Este novo modelo foi feito com base no modelo exemplo "Forest Fire Model", em qu
 
 ## Apresentação do novo modelo, em sua relação ao modelo original
 
-Neste novo modelo é adicionado uma variável chamada "rain", quando a quantidade de chuva é suficiente as árvores que estavam queimando são salvas e elas voltam a cor verde.
+Neste novo modelo é adicionado duas variáveis chamadas "Umidade" e "Resistência a queimada", quando a quantidade de umidade ou resistência é suficiente as árvores a queimada tende a parar.
 
 ## Descrição da hipótese causal que deseja comprovar
 
-Quero comprovar que ocorre a diminuição de áreas queimadas quando a quantidade de chuva é alta e o aumento do tempo para a queima total da área caso a quantidade de chuva não for muito alta.
+Quero comprovar que em diferentes florestas com caracteristicas diferentes as queimadas podem ocorrer de forma diferente.
 
 ## Justificativa para as mudanças feitas, em relação ao código original
 
-Para que o resultado fique mais dinâmico foi colocado uma função random em que os valores variam de -0.40 a 0.25, mostrando que a variável não apresenta sempre o mesmo valor durante a execução do programa (fazendo uma simulção da realidade uma vez que a chuva não cai na mesma quantidade ao longo do tempo).
+Para que o resultado fique mais dinâmico foi colocado uma função random em que os valores variam, mostrando que a variável não apresenta sempre o mesmo valor durante a execução do programa (fazendo uma simulção da realidade uma vez que a umidade e a resistência da vegetação varião ao longo do tempo).
 
-A variável "save" guarda qual árvore foi salva, valor 1 para as salvas e valor 0 para as que não foram salvas (estas também podem não ter sido queimadas por causa da distância delas em relação às outras).
-
-O parâmetro/variável de controle "rain" varia de 0 a 1, quando ela possui um valor maior que 0.6 a área que está queimando é salva, note que apenas os pontos "On Fire" podem ser salvos.
- 
-As variáveis "density" e "rain" são guardadas para que sejam usadas na nomeação dos arquivos .csv.
-
-Foi adicionado as funções em Phyton que criam arquivos .csv e colocam os valores necessários neles. 
+A variável "PartiallyBurned" guarda qual árvore foi danificada, valor 1 para as salvas e valor 0 para as que não foram salvas (estas também podem não ter sido queimadas por causa da distância delas em relação às outras).
 
 ## Orientação sobre como usar o simulador
 
-Executar o comando $ mesa runserver forest_fire_out
-
-## Descrição das variáveis armazenadas no arquivo CSV
-
-Nos arquivos .csv quando "rain = 0" podemos ver que a área é quase totalmente ou totalmente queimada, dependendo da variável densidade (quanto menor a densidade menos árvores queimadas).
-
-Com a variável "rain" cada vez mais próximo do valor 0.6, mais áreas verdes aparecem e mais há mais árvores salvas.
-
-Por fim, com a variável "rain" acima de 0.6, as áreas queimadas são baixas e a quantidade de árvores salvas também é baixa, uma vez que é difícil o fogo espalhar com o valor de "rain" alto.
+Executar o comando $ mesa runserver forest_fire_moisture
 
 ## Summary original model
 
