@@ -7,12 +7,12 @@ from mesa.batchrunner import batch_run
 
 # definição das variáveis dos experimentos 
 # que serão controladas (valor fixo) ou manipuladas
-params = {"density": 200, "width": 100, "height": 100, "Umidade": np.arange(0, 1, 0.2), "TipoVegetacao": np.arange(0, 1, 0.2)}#np.arange(0, 1, 0.2)
+params = {"density": 200, "width": 100, "height": 100, "Umidade": np.arange(0, 1, 0.15), "TipoVegetacao": np.arange(0, 1, 0.1)}#np.arange(0, 1, 0.2)
 
 # define a quantidade de experimentos 
 # que serão repetidos para cada configuração de valores
 # para as variáveis (de controle e independentes) 
-experiments_per_parameter_configuration = 10
+experiments_per_parameter_configuration = 100
 
 # quantidade de passos suficientes para que a simulação
 # alcance um estado de equilíbrio (steady state)
